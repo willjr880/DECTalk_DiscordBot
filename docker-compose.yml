@@ -1,0 +1,26 @@
+version: '3'
+services:
+  decbot:
+    build:
+      context: .
+      args:
+      # BOT_TOKEN - the discord bot token
+       - 'BOT_TOKEN='
+      # GUILD_ID - the discord server (guild) ID. See https://support.discord.com/hc/en-us/articles/206346498
+       - 'GUILD_ID='
+      # CHANNEL_ID - the voice channel ID
+       - 'CHANNEL_ID='
+      # APPLICATION_ID - the bot's Application ID
+       - 'APPLICATION_ID='
+      # SERVICE_URL - the dectalk service URL (default is to use DECTalk_webservice in the same docker network / same host)
+       - 'SERVICE_URL=http://dectalk_web:3000'
+      # SERVICE_APIKEY - apikey to access the dectalk service
+       - 'SERVICE_APIKEY=abc123'
+      # APP_NODE_ENV - set the nodejs environment [production, development] - errors will appear in the response in development mode
+       - 'APP_NODE_ENV=production'
+    image: dectalk_discordbot
+    container_name: dectalk_discordbot
+networks:
+    default:
+        external: true # Remove if DECTalk_webservice is not running on the same host
+        name: dectalk_net
